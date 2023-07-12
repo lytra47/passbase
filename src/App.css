@@ -7,3 +7,17 @@
 .login-container {
   margin-top: 10%;
 }
+
+.nav-link-container {
+  margin-inline: 1em;
+}
+.nav-links {
+  color: white;
+  text-decoration: none;
+  margin-inline: 0.5em;
+}
+
+.nav-logout {
+  color: white;
+  text-decoration: none;
+}

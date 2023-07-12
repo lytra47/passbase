@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Button, Container, Row, Col } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("Email: ", email);
-    console.log("Password: ", password);
+    let result = await fetch("http://127.0.0.1:5000/login", {
+      method: "post",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    console.log(result);
   };
 
   return (
     <Container className=" p-5">
-      <div className="mt-5 p-5 col-sm-12 col-md-8 col-lg-4 bg-dark rounded-3 mx-auto ">
+      <div className="mt-5 p-5 col-sm-12 col-md-8 col-lg-4 bg-dark rounded-3 mx-auto text-white">
         <Row className="mx-auto">
           <Col className=" mx-auto ">
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleLogin}>
               <FormGroup>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
@@ -26,7 +38,7 @@ const LoginForm = () => {
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </FormGroup>
-              <FormGroup className="mt-3">
+              <FormGroup className="mt-4">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -35,7 +47,7 @@ const LoginForm = () => {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </FormGroup>
-              <Button className="mt-3" type="submit">
+              <Button className="mt-4" type="submit">
                 Login
               </Button>
             </Form>
