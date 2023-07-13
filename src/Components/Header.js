@@ -5,23 +5,33 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const auth = false;
+  const auth = localStorage.getItem("user");
+
+  function handleLogout() {
+    localStorage.clear();
+  }
+
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home">PassBase</Navbar.Brand>
+        <Navbar.Brand>
+          {" "}
+          <Link to={"/"} className="nav-links">
+            PassBase
+          </Link>
+        </Navbar.Brand>
 
         <Nav className="me-auto nav-link-container">
           {auth ? (
             <>
-              <Link to={"/"} className="nav-links">
-                Home
-              </Link>
-              <Link to={"/"} className="nav-links">
+              <Link to={"/saved"} className="nav-links">
                 Saved
               </Link>
               <Link to={"/"} className="nav-links">
-                Share
+                Shared
+              </Link>
+              <Link to={"/"} className="nav-links">
+                Settings
               </Link>
             </>
           ) : (
@@ -35,9 +45,13 @@ function Header() {
             </>
           )}
         </Nav>
-        <Nav className="nav-logout-container">
-          <Link className="nav-logout">Logout</Link>
-        </Nav>
+        {auth && (
+          <Nav className="nav-logout-container">
+            <Link onClick={handleLogout} to="/login" className="nav-logout">
+              Logout
+            </Link>
+          </Nav>
+        )}
       </Container>
     </Navbar>
   );

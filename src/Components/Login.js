@@ -5,8 +5,10 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,7 +22,14 @@ const LoginForm = () => {
       },
     });
     result = await result.json();
-    console.log(result);
+
+    if (result.email) {
+      localStorage.setItem("user", JSON.stringify(result));
+      navigate("/");
+      console.log(result);
+      return;
+    }
+    alert("no user found");
   };
 
   return (
