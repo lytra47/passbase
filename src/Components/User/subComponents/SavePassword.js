@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
 function SavePassword({ email }) {
+  const date = new Date();
   const [saveUsername, setSaveUsername] = useState("");
   const [saveWebsite, setSaveWebsite] = useState("");
   const [enterPassword, setenterPassword] = useState("");
@@ -16,7 +17,7 @@ function SavePassword({ email }) {
   async function handleSavePass() {
     if (enterPassword !== savePassword) return alert("Password does not match");
 
-    const data = { saveUsername, saveWebsite, savePassword, saveNotes };
+    const data = { saveUsername, saveWebsite, savePassword, saveNotes, date };
 
     console.log(JSON.stringify(data));
     let result = await fetch("http://127.0.0.1:5000/savePassword", {

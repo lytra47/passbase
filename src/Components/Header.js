@@ -1,11 +1,21 @@
 import React from "react";
+import { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const auth = localStorage.getItem("user");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth) {
+      navigate("/login");
+    }
+  }, []);
 
   function handleLogout() {
     localStorage.clear();
@@ -24,13 +34,24 @@ function Header() {
         <Nav className="me-auto nav-link-container">
           {auth ? (
             <>
+              <Link to={"/"} className="nav-links">
+                Home
+              </Link>
               <Link to={"/saved"} className="nav-links">
                 Saved
               </Link>
-              <Link to={"/"} className="nav-links">
+              <Link
+                disabled={true}
+                to={"/"}
+                className="nav-links text-secondary"
+              >
                 Shared
               </Link>
-              <Link to={"/"} className="nav-links">
+              <Link
+                disabled={true}
+                to={"/"}
+                className="nav-links text-secondary"
+              >
                 Settings
               </Link>
             </>

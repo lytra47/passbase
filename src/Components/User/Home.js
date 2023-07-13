@@ -10,6 +10,7 @@ function Home() {
   const navigate = useNavigate();
   const auth = localStorage.getItem("user");
   const userEmail = JSON.parse(auth).email;
+  const userName = JSON.parse(auth).name;
   useEffect(() => {
     if (!auth) {
       navigate("/login");
@@ -22,12 +23,16 @@ function Home() {
         <Row className=" mt-5">
           <Col xs={12} sm={12} md={6} lg={6} className="mt-5">
             <Card>
-              <Card.Body>Start saving your passwords.</Card.Body>
+              <Card.Body>
+                <h4>Start saving your passwords.</h4>
+              </Card.Body>
             </Card>
           </Col>
           <Col xs={12} sm={12} md={6} lg={6} className="mt-5">
             <Card>
-              <Card.Body>Tile 2</Card.Body>
+              <Card.Body>
+                <h4>{userName}</h4>
+              </Card.Body>
             </Card>
           </Col>
           <Col xs={12} sm={12} md={12} lg={12} className="mt-5">
